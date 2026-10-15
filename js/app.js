@@ -233,6 +233,8 @@ const $ = id => document.getElementById(id);
 $('settingsBtn').addEventListener('click', () => {
   const s = db.settings, p = prefs();
   $('setNew').value = s.newPerDay;
+  const m = { pv: true, idiom: true, word: true, ...(s.mix || {}) };
+  $('mixPv').checked = m.pv; $('mixIdiom').checked = m.idiom; $('mixWord').checked = m.word;
   $('setFront').value = s.front;
   $('setRate').value = s.rate;
   $('setFs').value = p.fs || 1;
@@ -243,6 +245,11 @@ $('settingsBtn').addEventListener('click', () => {
   $('settingsDlg').showModal();
 });
 $('setNew').onchange = e => { db.settings.newPerDay = +e.target.value; persist(); render(); };
+['mixPv', 'mixIdiom', 'mixWord'].forEach(cid => $(cid).onchange = () => {
+  const m = { pv: $('mixPv').checked, idiom: $('mixIdiom').checked, word: $('mixWord').checked };
+  if (!m.pv && !m.idiom && !m.word) { $(cid).checked = true; toast('하나는 골라야 해요.'); return; }
+  db.settings.mix = m; persist(); render();
+});
 $('setFront').onchange = e => { db.settings.front = e.target.value; persist(); render(); };
 $('setRate').onchange = e => { db.settings.rate = +e.target.value; persist(); speak('Hang on, let me figure it out.'); };
 $('setVoice').onchange = e => { db.settings.voice = e.target.value; persist(); speak('Hang on, let me figure it out.'); };

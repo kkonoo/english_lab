@@ -360,6 +360,13 @@ dialog h3 { margin-top: 18px; }
 .reg-row .rung.reg-formal { background: color-mix(in srgb, #3D63DD 16%, var(--surface)); color: var(--text); }
 .reg-row .rung.reg-rude { background: color-mix(in srgb, var(--bad) 14%, var(--surface)); color: var(--text); }
 
+/* ---------- 오늘: 섞어 복습 ---------- */
+.mix-boxes { display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+.mix-boxes label { display: flex; align-items: center; gap: 4px; cursor: pointer; white-space: nowrap; }
+.reg-q { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
+.reg-q span { background: var(--surface-2); border-radius: 8px; padding: 6px 10px; font-weight: 600; }
+.reg-q span.me { background: var(--accent-soft); color: var(--accent); }
+
 /* ---------- 휴대폰 ---------- */
 @media (max-width: 900px) {
   .topbar { flex-wrap: wrap; padding: 8px 12px; }
