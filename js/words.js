@@ -3,11 +3,12 @@
 const WGROUPS = window.WORD_GROUPS;
 const WORDS = window.WORDS;
 const WORD_BY_ID = Object.fromEntries(WORDS.map(w => [w.id, w]));
-const POS = { adv: '부사', adj: '형용사', verb: '동사' };
+const POS = { reg: '말투 사다리', adv: '부사', adj: '형용사', verb: '동사' };
 const POS_NOTE = {
-  adv: '문장마다 끼어서 약하게 발음돼요. 듣기를 제일 많이 방해하는 단어들이에요.',
+  reg: '같은 말을 친구 · 동료 · 업무 메일에 맞춰 바꿔 말하는 연습이에요.',
+  adv: '문장마다 끼어서 약하게 발음돼요. 💼 격식 그룹은 회의·메일용이에요.',
   adj: '뜻보다 "얼마나 센지"가 중요해요. 사다리에서 왼쪽이 약하고 오른쪽이 세요.',
-  verb: '교과서 동사 대신 원어민이 일상에서 쓰는 동사예요.',
+  verb: '교과서 동사 대신 원어민이 일상에서 쓰는 동사, 그리고 업무용 격식 동사예요.',
 };
 let wGroup = null, wOpen = new Set(), wOnly1 = false, wReg = '';
 
@@ -29,8 +30,14 @@ RENDER.words = el => {
   el.querySelectorAll('[data-wg]').forEach(b => b.onclick = () => { wGroup = b.dataset.wg; wOpen = new Set(); scrollTo(0, 0); render(); });
 };
 
-// 순위가 크게 건너뛰면(기쁨 1~6 / 슬픔 11~16) 사다리를 나눠요
+// 말투 사다리: set끼리 묶어 캐주얼 → 무난 → 격식
+// 강도 사다리: 순위가 크게 건너뛰면(기쁨 1~6 / 슬픔 11~16) 나눠요
 function ladders(list) {
+  if (list.some(w => w.set)) {
+    const sets = {};
+    list.forEach(w => (sets[w.set] = sets[w.set] || []).push(w));
+    return Object.values(sets).map(s => s.sort((a, b) => a.rank - b.rank));
+  }
   const ranked = list.filter(w => w.rank > 0).sort((a, b) => a.rank - b.rank);
   const out = [];
   ranked.forEach((w, i) => {
@@ -44,7 +51,7 @@ function drawWordGroup(el) {
   const g = WGROUPS.find(x => x.id === wGroup);
   const all = wordsIn(g.id);
   const list = all.filter(w => (!wOnly1 || w.level === 1) && (!wReg || w.register === wReg))
-    .sort((a, b) => (a.rank || 99) - (b.rank || 99) || a.level - b.level);
+    .sort((a, b) => g.pos === 'reg' ? 0 : (a.rank || 99) - (b.rank || 99) || a.level - b.level);
   const lads = ladders(all);
   el.innerHTML = `
     <div class="session-top">
@@ -52,7 +59,12 @@ function drawWordGroup(el) {
       <b class="set-title">${g.emoji} ${esc(g.title)}</b>
       <span class="hint">${POS[g.pos]} · ${all.filter(w => status(w.id) === 'known').length}/${all.length} 익힘</span>
     </div>
-    ${lads.map(l => `
+    ${g.pos === 'reg' ? `
+      <div class="panel reg-ladders">
+        <div class="reg-head"><span>👟 친구</span><span>🙂 동료</span><span>🎩 업무 메일·회의</span></div>
+        ${lads.map(l => `<div class="reg-row">${l.map(w =>
+          `<button class="rung reg-${w.register}" data-jump="${w.id}">${esc(w.word)}</button>`).join('')}</div>`).join('')}
+      </div>` : lads.map(l => `
       <div class="panel">
         <div class="ladder">${l.map((w, i) => {
           const k = Math.round(12 + (l.length > 1 ? i / (l.length - 1) : 1) * 70);

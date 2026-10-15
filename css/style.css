@@ -350,6 +350,16 @@ dialog h3 { margin-top: 18px; }
 .stress { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .9em; color: var(--muted); }
 .pos-title { margin: 8px 0 -4px; }
 
+/* ---------- 말투 사다리 ---------- */
+.reg-ladders { display: flex; flex-direction: column; gap: 6px; }
+.reg-head, .reg-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.reg-head span { font-size: calc(12px * var(--fs)); color: var(--muted); font-weight: 600; text-align: center; }
+.reg-row .rung { width: 100%; text-align: center; font-size: calc(13.5px * var(--fs)); padding: 8px 6px; }
+.reg-row .rung.reg-neutral { background: var(--surface-2); color: var(--text); }
+.reg-row .rung.reg-casual { background: color-mix(in srgb, var(--warn) 18%, var(--surface)); color: var(--text); }
+.reg-row .rung.reg-formal { background: color-mix(in srgb, #3D63DD 16%, var(--surface)); color: var(--text); }
+.reg-row .rung.reg-rude { background: color-mix(in srgb, var(--bad) 14%, var(--surface)); color: var(--text); }
+
 /* ---------- 휴대폰 ---------- */
 @media (max-width: 900px) {
   .topbar { flex-wrap: wrap; padding: 8px 12px; }

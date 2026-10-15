@@ -25,7 +25,7 @@ function bestField(fields, q) { return fields.find(f => f && f.toLowerCase().inc
 function runSearch() {
   const q = searchInput.value.trim().toLowerCase();
   if (!q) {
-    searchResults.innerHTML = '<p class="hint">구동사 335개 · 표현 705개 · 단어 330개 · 쉐도잉 240문장에서 찾아요.</p>';
+    searchResults.innerHTML = '<p class="hint">구동사 335개 · 표현 705개 · 단어 590개 · 쉐도잉 240문장에서 찾아요.</p>';
     return;
   }
   const has = fields => fields.some(f => f && String(f).toLowerCase().includes(q));
