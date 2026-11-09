@@ -185,9 +185,9 @@ dialog h3 { margin-top: 18px; }
 .pgrid thead th.hl { color: var(--accent); background: var(--accent-soft); }
 .cellbtn {
   width: 18px; height: 18px; border-radius: 50%; cursor: pointer; margin: 1px; padding: 0;
-  vertical-align: middle; transition: transform .1s;
+  vertical-align: middle; transition: box-shadow .1s;
 }
-.cellbtn:hover { transform: scale(1.25); }
+.cellbtn:hover { box-shadow: 0 0 0 2px var(--text); } /* 커지는 대신 테두리로 표시 */
 /* 크기 = 빈도 */
 .cellbtn.f1 { width: 22px; height: 22px; }
 .cellbtn.f2 { width: 15px; height: 15px; }
