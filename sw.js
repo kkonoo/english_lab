@@ -5,7 +5,7 @@ const SHELL = [
   'data/core.js', 'data/phrasals.js', 'data/shadow.js', 'data/idioms.js', 'data/words.js',
   'js/app.js', 'js/card.js', 'js/today.js', 'js/quiz.js', 'js/grid.js', 'js/list.js', 'js/sounds.js', 'js/shadow.js', 'js/idioms.js', 'js/words.js', 'js/notes.js', 'js/search.js',
   'js/sync.js', 'js/firebase-config.js',
-  'manifest.webmanifest', 'icons/app-192.png', 'icons/app-512.png', 'icons/app-maskable-192.png', 'icons/app-maskable-512.png',
+  'manifest.webmanifest', 'icons/icon.svg', 'icons/app-192.png', 'icons/app-512.png', 'icons/app-maskable-192.png', 'icons/app-maskable-512.png',
 ];
 
 self.addEventListener('install', e => {

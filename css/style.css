@@ -61,7 +61,8 @@ main { max-width: 860px; margin: 0 auto; padding: 14px 16px 60px; }
   padding: 10px 16px; background: color-mix(in srgb, var(--bg) 88%, transparent);
   backdrop-filter: blur(10px); border-bottom: 1px solid var(--line);
 }
-.brand { font-weight: 700; white-space: nowrap; }
+.brand { font-weight: 700; white-space: nowrap; display: flex; align-items: center; gap: 8px; }
+.brand img { width: 1.5em; height: 1.5em; }
 .topbar .seg { margin: 0 auto; }
 
 .seg { display: inline-flex; gap: 2px; padding: 3px; background: var(--surface-2); border-radius: 11px; flex-wrap: wrap; }
